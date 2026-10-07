@@ -1,0 +1,157 @@
+
+======================================================================
+1. 資料規模（每個聯賽）
+======================================================================
+                matches    shots   goals  penalties  shots_per_match
+league                                                              
+La Liga           380.0   9168.0  1014.0       97.0             24.1
+Ligue 1           377.0   8814.0   916.0       91.0             23.4
+Premier League    380.0   9908.0   988.0       91.0             26.1
+TOTAL            1137.0  27890.0  2918.0      279.0             24.5
+
+比賽清單中的場次： 1137 ｜ 有射門資料的場次： 1137
+
+======================================================================
+2. 資料品質
+======================================================================
+重複的射門事件 ID： 0
+重複的比賽 ID（比賽清單）： 0
+座標超出球場範圍： 1
+座標缺失： 0
+
+射門結果分布：
+shot_outcome
+Off T               9162
+Blocked             6945
+Saved               6582
+Goal                2918
+Wayward             1548
+Post                 539
+Saved Off Target     110
+Saved to Post         86
+
+射門類型分布：
+shot_type
+Open Play    26336
+Free Kick     1270
+Penalty        279
+Corner           5
+
+各欄位缺失比例（%）：
+under_pressure       76.3
+shot_first_time      68.6
+shot_key_pass_id     28.7
+shot_freeze_frame     0.8
+id                    0.0
+is_goal               0.0
+angle                 0.0
+distance              0.0
+league                0.0
+y                     0.0
+x                     0.0
+shot_statsbomb_xg     0.0
+match_id              0.0
+play_pattern          0.0
+shot_technique        0.0
+shot_body_part        0.0
+shot_type             0.0
+shot_outcome          0.0
+second                0.0
+minute                0.0
+period                0.0
+player                0.0
+team                  0.0
+is_penalty            0.0
+
+注意：StatsBomb 的是非欄位（under_pressure、shot_first_time）只在「是」的時候記錄，
+缺失代表「否」，不是真的缺資料。報告要說明這個處理。
+
+有 freeze frame 的射門比例： 99.2%
+有助攻傳球（shot_key_pass_id）的射門比例： 71.3%
+
+======================================================================
+3. 重複觀測（叢集結構）
+======================================================================
+每場射門數： {'count': 1137.0, 'mean': 24.5, 'std': 5.9, 'min': 7.0, '25%': 20.0, '50%': 25.0, '75%': 28.0, 'max': 45.0}
+
+共 1362 名球員射門；射門最多的 10 人：
+player
+Cristiano Ronaldo dos Santos Aveiro    228
+Lionel Andrés Messi Cuccittini         158
+Harry Kane                             158
+Zlatan Ibrahimović                     148
+Andy Delort                            143
+Luis Alberto Suárez Díaz               139
+Michy Batshuayi Tunga                  123
+Neymar da Silva Santos Junior          123
+Sergio Leonel Agüero del Castillo      118
+Jamie Vardy                            118
+
+射門最多的 10% 球員，貢獻了 37% 的射門
+→ 射門不是彼此獨立的，所以切分資料要以「比賽」為單位。
+
+======================================================================
+4. 目標變數：進球率（排除點球）
+======================================================================
+                shots  goals  goal_rate
+league                                 
+La Liga          9071    945      0.104
+Ligue 1          8723    852      0.098
+Premier League   9817    914      0.093
+
+整體進球率：0.098 → 類別不平衡，不能用 accuracy 評估
+點球進球率：0.742（279 次）→ 排除並分開處理的理由
+
+======================================================================
+5. 各特徵的進球率
+======================================================================
+
+shot_body_part：
+                shots  goal_rate
+shot_body_part                  
+Right Foot      14260      0.096
+Left Foot        8592      0.094
+Head             4695      0.107
+Other              64      0.391
+
+play_pattern：
+                shots  goal_rate
+play_pattern                    
+Regular Play     9284      0.102
+From Free Kick   5631      0.093
+From Throw In    4991      0.090
+From Corner      4546      0.088
+From Counter     1278      0.162
+From Goal Kick   1072      0.100
+From Keeper       467      0.096
+From Kick Off     310      0.084
+Other              32      0.188
+
+shot_technique：
+                shots  goal_rate
+shot_technique                  
+Normal          20989      0.093
+Half Volley      4079      0.102
+Volley           1852      0.129
+Lob               274      0.212
+Overhead Kick     176      0.097
+Backheel          123      0.122
+Diving Header     118      0.195
+
+======================================================================
+6. 實際進球 vs StatsBomb 官方 xG（排除點球）
+======================================================================
+                goals  statsbomb_xg  goals_minus_xg
+league                                             
+La Liga           945         903.8            41.2
+Ligue 1           852         803.6            48.4
+Premier League    914         900.1            13.9
+
+======================================================================
+7. 資料量
+======================================================================
+非點球射門 27611 次，其中進球 2711 次。
+以「每個參數至少約 10–20 個進球」的經驗法則，約可支撐 135–271 個參數。
+正式判斷請在建模後畫 learning curve。
+
+圖已存到 figures/： ['eda_distance_hist.png', 'eda_goal_rate_by_distance.png', 'eda_goal_rate_by_league.png', 'eda_shot_map.png']
