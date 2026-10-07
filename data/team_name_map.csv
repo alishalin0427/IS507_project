@@ -1,0 +1,46 @@
+fd_name,sb_name,league,note
+Man United,Manchester United,Premier League,abbreviation
+Man City,Manchester City,Premier League,abbreviation
+Tottenham,Tottenham Hotspur,Premier League,short name
+Newcastle,Newcastle United,Premier League,short name
+West Ham,West Ham United,Premier League,short name
+West Brom,West Bromwich Albion,Premier League,abbreviation
+Leicester,Leicester City,Premier League,short name
+Norwich,Norwich City,Premier League,short name
+Swansea,Swansea City,Premier League,short name
+Stoke,Stoke City,Premier League,short name
+Bournemouth,AFC Bournemouth,Premier League,short name
+Ath Madrid,Atlético Madrid,La Liga,different spelling
+Ath Bilbao,Athletic Club,La Liga,different spelling
+Celta,Celta Vigo,La Liga,short name
+La Coruna,RC Deportivo La Coruña,La Liga,different spelling
+Betis,Real Betis,La Liga,short name
+Sociedad,Real Sociedad,La Liga,short name
+Vallecano,Rayo Vallecano,La Liga,short name
+Sp Gijon,Sporting Gijón,La Liga,different spelling
+Espanol,Espanyol,La Liga,different spelling
+Levante,Levante UD,La Liga,short name
+Malaga,Málaga,La Liga,accent
+Paris SG,Paris Saint-Germain,Ligue 1,abbreviation
+St Etienne,Saint-Étienne,Ligue 1,abbreviation
+Ajaccio GFCO,Gazélec Ajaccio,Ligue 1,abbreviation
+Marseille,Olympique de Marseille,Ligue 1,short name
+Monaco,AS Monaco,Ligue 1,short name
+Nice,OGC Nice,Ligue 1,short name
+Caen,Stade Malherbe Caen,Ligue 1,short name
+Reims,Stade de Reims,Ligue 1,short name
+M'gladbach,Borussia Mönchengladbach,1. Bundesliga,different spelling
+Dortmund,Borussia Dortmund,1. Bundesliga,short name
+Leverkusen,Bayer Leverkusen,1. Bundesliga,short name
+Mainz,FSV Mainz 05,1. Bundesliga,short name
+FC Koln,FC Köln,1. Bundesliga,different spelling
+Ein Frankfurt,Eintracht Frankfurt,1. Bundesliga,abbreviation
+Darmstadt,Darmstadt 98,1. Bundesliga,short name
+Hertha,Hertha Berlin,1. Bundesliga,short name
+Hamburg,Hamburger SV,1. Bundesliga,short name
+Hannover,Hannover 96,1. Bundesliga,short name
+Stuttgart,VfB Stuttgart,1. Bundesliga,short name
+Inter,Inter Milan,Serie A,short name
+Milan,AC Milan,Serie A,short name
+Roma,AS Roma,Serie A,short name
+Verona,Hellas Verona,Serie A,short name

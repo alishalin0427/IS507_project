@@ -73,7 +73,7 @@ for name, code in LEAGUES.items():
 
     shots.to_parquet(f"data/processed/shots_{code}_1516.parquet", index=False)
     all_shots.append(shots)
-    print(f"  {len(shots)} shots saved")[cite: 1]
+    print(f"  {len(shots)} shots saved")
 
 # ---- 5. 合併並印出摘要 ----
 combined = pd.concat(all_shots, ignore_index=True)

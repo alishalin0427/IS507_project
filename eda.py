@@ -9,6 +9,16 @@ eda.py — 探索性資料分析（EDA）
 輸出：終端機印出的表格（貼進報告）＋ figures/ 裡的圖
 """
 import os, sys, glob, json
+# 加入這兩行：強制 Python 輸出使用 UTF-8，解決 Windows/Code Runner 的編碼與亂碼問題
+sys.stdout.reconfigure(encoding='utf-8')
+sys.stderr.reconfigure(encoding='utf-8')
+
+import numpy as np
+import pandas as pd
+import matplotlib
+matplotlib.use("Agg")
+import matplotlib.pyplot as plt
+
 import numpy as np
 import pandas as pd
 import matplotlib
