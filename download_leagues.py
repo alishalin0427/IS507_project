@@ -8,9 +8,8 @@ os.makedirs("data/processed", exist_ok=True)
 
 # ===== 要下載的聯賽：名稱必須和 StatsBomb 的寫法一模一樣 =====
 LEAGUES = {
-    "Premier League": "pl",
-    "La Liga": "laliga",
-    "Ligue 1": "ligue1",
+    "1. Bundesliga": "bundesliga",
+    "Serie A": "seriea",
 }
 SEASON = "2015/2016"
 
@@ -30,7 +29,7 @@ for name, code in LEAGUES.items():
     # ---- 1. 找代碼 ----
     row = comps[(comps.competition_name == name) & (comps.season_name == SEASON)]
     if row.empty:
-        print(f"\n找不到「{name}」，請對照上面印出的名稱修改 LEAGUES")
+        print(f"\nCould not find '{name}'. Please check the printed names above and update LEAGUES.")
         continue
     cid, sid = int(row.competition_id.iloc[0]), int(row.season_id.iloc[0])
 
@@ -51,14 +50,14 @@ for name, code in LEAGUES.items():
                 sb.events(match_id=mid).to_pickle(path)
                 break
             except Exception as e:
-                print(f"  比賽 {mid} 下載失敗（{e}），5 秒後重試")
+                print(f"  Match {mid} download failed ({e}), retrying in 5 seconds")
                 time.sleep(5)
         if i % 20 == 0:
-            print(f"  已處理 {i}/{len(matches)}")
+            print(f"  Processed {i}/{len(matches)}")
         time.sleep(0.2)
 
     files = glob.glob(f"{raw_dir}/*.pkl")
-    print(f"  已下載 {len(files)}/{len(matches)} 場")
+    print(f"  Downloaded {len(files)}/{len(matches)} matches")
 
     # ---- 4. 篩出射門 ----
     ev = pd.concat(pd.read_pickle(f) for f in files)
@@ -74,7 +73,7 @@ for name, code in LEAGUES.items():
 
     shots.to_parquet(f"data/processed/shots_{code}_1516.parquet", index=False)
     all_shots.append(shots)
-    print(f"  射門 {len(shots)} 筆，已存檔")
+    print(f"  {len(shots)} shots saved")[cite: 1]
 
 # ---- 5. 合併並印出摘要 ----
 combined = pd.concat(all_shots, ignore_index=True)
@@ -87,4 +86,4 @@ summary = combined.groupby("league").agg(
 )
 summary["goal_rate"] = (summary.goals / summary.shots).round(3)
 print("\n", summary)
-print("重複的射門 ID：", combined["id"].duplicated().sum())
+print("Duplicate shot IDs:", combined["id"].duplicated().sum())
