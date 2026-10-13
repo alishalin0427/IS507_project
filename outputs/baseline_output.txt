@@ -1,0 +1,73 @@
+Non-penalty shots: 37488, goals: 3569, goal rate: 0.095
+
+Split (matches / shots / goal rate):
+  test    229 matches    5674 shots  0.106
+  train  1061 matches   26201 shots  0.093
+  valid   227 matches    5613 shots  0.093
+
+Baseline 1 coefficients:
+  intercept  -1.527
+  distance   -0.081
+  angle      +1.146
+  (負數 = 這個值越大，進球機率越低；正數 = 越大越容易進)
+
+Validation results:
+                       model  log_loss  brier  mean_prediction  actual_goal_rate
+    Baseline 0: average rate    0.3090 0.0842           0.0933            0.0928
+Baseline 1: distance + angle    0.2765 0.0772           0.0942            0.0928
+
+Calibration table (Baseline 1, validation):
+                     predicted  actual  shots
+bin                                          
+(-0.000375, 0.0225]      0.017   0.021    562
+(0.0225, 0.0306]         0.027   0.027    561
+(0.0306, 0.039]          0.035   0.039    561
+(0.039, 0.0492]          0.044   0.046    561
+(0.0492, 0.0629]         0.056   0.048    562
+(0.0629, 0.0818]         0.072   0.084    561
+(0.0818, 0.107]          0.094   0.105    561
+(0.107, 0.145]           0.125   0.123    561
+(0.145, 0.206]           0.171   0.157    561
+(0.206, 0.843]           0.302   0.278    562
+
+Saved figures/baseline_calibration.png
+
+======================================================================
+Error analysis of Baseline 1 (training set)
+goals_minus_xg > 0: model under-predicts; < 0: model over-predicts
+======================================================================
+
+By shot_body_part:
+                shots  goals     xg  actual_rate  predicted_rate  goals_minus_xg     z         verdict
+shot_body_part                                                                                        
+Head             4315    451  849.1        0.105           0.197          -398.1 -15.6   OVER-predicts
+Left Foot        8249    715  595.6        0.087           0.072           119.4   5.3  UNDER-predicts
+Other              62     19   17.6        0.306           0.283             1.4   0.4              ok
+Right Foot      13575   1259  981.7        0.093           0.072           277.3   9.6  UNDER-predicts
+
+By play_pattern_grp:
+                  shots  goals     xg  actual_rate  predicted_rate  goals_minus_xg     z         verdict
+play_pattern_grp                                                                                        
+From Corner        4229    361  611.0        0.085           0.144          -250.0 -11.5   OVER-predicts
+From Counter       1154    183   93.5        0.159           0.081            89.5  10.0  UNDER-predicts
+From Free Kick     5502    493  474.5        0.090           0.086            18.5   0.9              ok
+From Throw In      4708    417  399.9        0.089           0.085            17.1   0.9              ok
+Other              1794    161  140.5        0.090           0.078            20.5   1.9              ok
+Regular Play       8814    829  724.5        0.094           0.082           104.5   4.2  UNDER-predicts
+
+By league:
+                shots  goals     xg  actual_rate  predicted_rate  goals_minus_xg    z verdict
+league                                                                                       
+La Liga          6211    642  598.5        0.103           0.096            43.5  2.0      ok
+Ligue 1          6323    574  593.6        0.091           0.094           -19.6 -0.9      ok
+Premier League   6931    653  667.6        0.094           0.096           -14.6 -0.6      ok
+Serie A          6736    575  584.2        0.085           0.087            -9.2 -0.4      ok
+
+By distance_band:
+               shots  goals      xg  actual_rate  predicted_rate  goals_minus_xg    z         verdict
+distance_band                                                                                        
+0-6              711    308   295.9        0.433           0.416            12.1  0.9              ok
+6-12            5314    939  1035.0        0.177           0.195           -96.0 -3.4   OVER-predicts
+12-18           5827    686   567.1        0.118           0.097           118.9  5.3  UNDER-predicts
+18-25           6760    348   352.7        0.051           0.052            -4.7 -0.3              ok
+25+             7589    163   193.3        0.021           0.025           -30.3 -2.2   OVER-predicts

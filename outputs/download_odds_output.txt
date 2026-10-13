@@ -1,0 +1,7 @@
+E0   Premier League   380 matches   65 columns  -> data/raw/odds/E0_1516.csv  [OK]
+SP1  La Liga          380 matches   64 columns  -> data/raw/odds/SP1_1516.csv  [OK]
+F1   Ligue 1          380 matches   64 columns  -> data/raw/odds/F1_1516.csv  [OK]
+I1   Serie A          380 matches   64 columns  -> data/raw/odds/I1_1516.csv  [OK]
+D1   Bundesliga       306 matches   64 columns  -> data/raw/odds/D1_1516.csv  [OK]
+
+Done.

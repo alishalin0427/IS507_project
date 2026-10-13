@@ -1,8 +1,5 @@
 """
 baseline.py — Baseline 0 與 Baseline 1
-用法（在 IS507_project/ 資料夾執行）：
-    python baseline.py
-
 做的事：
   1. 讀入四個完整聯賽的射門，排除點球，計算距離與角度
   2. 按「比賽」切分 train / validation / test（70% / 15% / 15%）

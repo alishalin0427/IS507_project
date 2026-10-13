@@ -8,8 +8,11 @@ os.makedirs("data/processed", exist_ok=True)
 
 # ===== 要下載的聯賽：名稱必須和 StatsBomb 的寫法一模一樣 =====
 LEAGUES = {
-    "1. Bundesliga": "bundesliga",
+     "Premier League": "pl",
+    "La Liga": "laliga",
+    "Ligue 1": "ligue1",
     "Serie A": "seriea",
+    "1. Bundesliga": "bundesliga",
 }
 SEASON = "2015/2016"
 
