@@ -53,6 +53,7 @@ Counts are for the four complete leagues (Premier League, La Liga, Serie A, Ligu
 | M3 | 10/7 | Mengling | Baseline 0 = training goal rate (9.3%); Baseline 1 = logistic regression on distance + angle | Goal rate falls steeply with distance (EDA). Validation log loss: 0.3090 → 0.2765. Baseline 1 is reasonably calibrated, with slight over-prediction for the best chances | Done |
 | M4 | 10/7 | Mengling | Next features: body part (Model 2), play pattern (Model 3) | Error analysis of Baseline 1 (training set): headers predicted 849 goals vs 451 actual (z = −15.6); corners over-predicted by 250 (z = −11.5); counter-attacks under-predicted by 90 (z = +10.0) | Planned for the final |
 | M5 | 10/12 | Team | Drop Model 4 (+ log distance) from the plan | Not part of the research question; keep the plan simple. Revisit if error analysis still shows bias by distance band | Done |
+| M6 | 11/17 | Mengling | Sort match IDs before shuffling for the split | Same seed gave a different split after re-download, because unique() follows file order. Sorting makes the split independent of file order. Baseline numbers updated.| Done |
 
 ## Feature rules (leakage)
 
@@ -67,7 +68,7 @@ Counts are for the four complete leagues (Premier League, La Liga, Serie A, Ligu
 - [x] **J2** IChen: finish `team_name_map.csv` for all leagues
 - [x] **D3** IChen: check why the Bundesliga is missing matches
 - [x] Mengling: build features and Baselines 0 and 1 on the four complete leagues
-- [ ] **Split reproducibility.** After re-downloading (A4), the Baseline 1 coefficients changed slightly (intercept −1.495 → −1.527) with the same seed, because the split shuffles match IDs in file order. Fix: sort match IDs before shuffling.
+- [x] **Split reproducibility.** After re-downloading (A4), the Baseline 1 coefficients changed slightly (intercept −1.495 → −1.527) with the same seed, because the split shuffles match IDs in file order. Fix: sort match IDs before shuffling.
 - [ ] Final: fit Models 2 and 3 and compare with Baseline 1 on validation
 - [ ] Final: join odds and check calibration for favourites vs underdogs
 - [ ] Final: evaluate the chosen model once on the test set

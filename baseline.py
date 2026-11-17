@@ -47,7 +47,7 @@ print(f"Non-penalty shots: {len(shots)}, goals: {shots['is_goal'].sum()}, "
 # ---------- 2. 按比賽切分 ----------
 # 每場比賽隨機分到一組，同一場的射門一定在同一組（data_log R1）
 rng = np.random.default_rng(SEED)
-match_ids = shots["match_id"].unique()
+match_ids = np.sort(shots["match_id"].unique())
 rng.shuffle(match_ids)
 n = len(match_ids)
 n_train, n_valid = int(0.70 * n), int(0.15 * n)
