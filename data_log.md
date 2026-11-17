@@ -50,10 +50,10 @@ Counts are for the four complete leagues (Premier League, La Liga, Serie A, Ligu
 |---|---|---|---|---|---|
 | M1 | 10/7 | Mengling | Split train / validation / test **by match** (70 / 15 / 15, random seed 507) | Shots are clustered: 25 per match; top 10% of shooters take 36% of shots. Splitting by shot would put the same match in two sets (leakage) | Done |
 | M2 | 10/7 | Mengling | Evaluate with **log loss** and a **calibration curve**, not accuracy | Only 9.5% of shots are goals, so predicting "no goal" every time is 90.5% accurate | Done |
-| M3 | 10/7 | Mengling | Baseline 0 = training goal rate (9.3%); Baseline 1 = logistic regression on distance + angle | Goal rate falls steeply with distance (EDA). Validation log loss: 0.3090 → 0.2765. Baseline 1 is reasonably calibrated, with slight over-prediction for the best chances | Done |
-| M4 | 10/7 | Mengling | Next features: body part (Model 2), play pattern (Model 3) | Error analysis of Baseline 1 (training set): headers predicted 849 goals vs 451 actual (z = −15.6); corners over-predicted by 250 (z = −11.5); counter-attacks under-predicted by 90 (z = +10.0) | Planned for the final |
+| M3 | 10/7 | Mengling | Baseline 0 = training goal rate (9.8%); Baseline 1 = logistic regression on distance + angle | Goal rate falls steeply with distance (EDA). Validation log loss: 0.3108 → 0.2725. Baseline 1 is reasonably calibrated but slightly over-predicts on average (mean prediction 9.9% vs 9.4% actual), partly because the validation goal rate is lower than the training rate. Numbers updated after M6 | Done |
+| M4 | 10/7 | Mengling | Next features: body part (Model 2), play pattern (Model 3) | Error analysis of Baseline 1 (training set): headers predicted 864 goals vs 454 actual (z = −16.0); corners over-predicted by 276 (z = −12.5); counter-attacks under-predicted by 84 (z = +9.0) | Planned for the final |
 | M5 | 10/12 | Team | Drop Model 4 (+ log distance) from the plan | Not part of the research question; keep the plan simple. Revisit if error analysis still shows bias by distance band | Done |
-| M6 | 11/17 | Mengling | Sort match IDs before shuffling for the split | Same seed gave a different split after re-download, because unique() follows file order. Sorting makes the split independent of file order. Baseline numbers updated.| Done |
+| M6 | 11/17 | Mengling | Sort match IDs before shuffling for the split | Same seed gave a different split after the re-download (A4), because `unique()` follows file order. Sorting makes the split independent of file order. New split: 1,061 / 227 / 229 matches; 26,115 / 5,739 / 5,634 shots. Baseline numbers updated in M3, M4 | Done |
 
 ## Feature rules (leakage)
 
@@ -72,3 +72,4 @@ Counts are for the four complete leagues (Premier League, La Liga, Serie A, Ligu
 - [ ] Final: fit Models 2 and 3 and compare with Baseline 1 on validation
 - [ ] Final: join odds and check calibration for favourites vs underdogs
 - [ ] Final: evaluate the chosen model once on the test set
+- [ ] **Distance non-linearity.** Baseline 1 error analysis by distance band: 6–12 yd over-predicted (z = −3.8), 12–18 yd under-predicted (z = +5.7), 25+ yd over-predicted (z = −2.3). Check again on Model 3 (task 13); if it remains, mention in Limitations or try log distance (see M5)

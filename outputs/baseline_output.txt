@@ -71,3 +71,5 @@ distance_band
 12-18           5833    723   591.3        0.124           0.101           131.7  5.7  UNDER-predicts
 18-25           6718    368   375.8        0.055           0.056            -7.8 -0.4              ok
 25+             7532    181   213.6        0.024           0.028           -32.6 -2.3   OVER-predicts
+
+Saved data/processed/predictions.csv (31854 shots)

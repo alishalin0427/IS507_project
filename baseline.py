@@ -158,4 +158,17 @@ print("=" * 70)
 for col in ["shot_body_part", "play_pattern_grp", "league", "distance_band"]:
     print(f"\nBy {col}:")
     print(group_errors(diag, col).to_string())
+# ======================================================================
+# 8. Export predictions for later analysis
+# ======================================================================
+# One row per shot, train + validation only; test stays sealed until the final model.
+# Later models (Model 2, 3) add their own columns: p_m2, p_m3.
+pred = shots[shots["split"].isin(["train", "valid"])].copy()
+pred["p_b0"] = base_rate
+pred["p_b1"] = model.predict_proba(pred[features])[:, 1]
+
+cols = ["id", "match_id", "team", "league", "split", "is_goal", "p_b0", "p_b1"]
+pred[cols].rename(columns={"id": "shot_id"}) \
+    .to_csv("data/processed/predictions.csv", index=False)
+print(f"\nSaved data/processed/predictions.csv ({len(pred)} shots)")
  
