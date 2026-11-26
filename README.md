@@ -31,9 +31,9 @@ Expected goals (xG) is the probability that a shot becomes a goal. We build xG m
 | Raw events | 5,321,459 |
 | Shots / non-penalty shots | 37,888 / 37,488 |
 | Non-penalty goals | 3,569 (9.5%) |
-| Split by match (train / validation / test) | 70% / 15% / 15% → 26,201 / 5,613 / 5,674 shots |
-| Validation log loss | Baseline 0: 0.3090 · Baseline 1: 0.2765 |
-| Baseline 1 coefficients | intercept −1.527 · distance −0.081 · angle +1.146 |
+| Split by match (train / validation / test) | 70% / 15% / 15% → 26,115 / 5,739 / 5,634 shots |
+| Validation log loss | Baseline 0: 0.3108 · Baseline 1: 0.2725 |
+| Baseline 1 coefficients | intercept −1.570 · distance −0.076 · angle +1.188 |
 
 ## Repository structure
 
