@@ -59,28 +59,16 @@ NAME_MAP = dict(zip(name_map["fd_name"], name_map["sb_name"]))
 odds["HomeTeam"] = odds["HomeTeam"].replace(NAME_MAP)
 odds["AwayTeam"] = odds["AwayTeam"].replace(NAME_MAP)
 
-# 5. 合併比賽與賠率
-# 如果 matches 依然沒有 league 欄位，直接用主客隊 (home_team, away_team) 合併即可：
-if "league" in matches.columns:
-    merged = pd.merge(
-        matches,
-        odds,
-        left_on=["league", "home_team", "away_team"],
-        right_on=["league", "HomeTeam", "AwayTeam"],
-        how="left"
-    )
-else:
-    # 每個賽季相同主客場只會對戰一次，直接用隊名對齊
-    merged = pd.merge(
-        matches,
-        odds,
-        left_on=["home_team", "away_team"],
-        right_on=["HomeTeam", "AwayTeam"],
-        how="left"
-    )
+# 5. 合併（先丟掉 odds 的日期欄，避免出現 match_date_x / _y）
+odds = odds.drop(columns=["Date", "match_date"])
+merged = matches.merge(
+    odds, left_on=["league", "home_team", "away_team"],
+    right_on=["league", "HomeTeam", "AwayTeam"], how="left")
 
-unmatched = merged[merged["B365H"].isna()]
-print(f"對不上賠率的比賽數量：{len(unmatched)}")
-if len(unmatched) > 0:
-    print("\n對不上的比賽：")
-    print(unmatched[["match_date_x", "home_team", "away_team"]])
+print("對不上賠率的比賽：", merged["B365H"].isna().sum())
+
+# 6. 輸出，每場比賽一列
+out = merged[["match_id", "league", "home_team", "away_team",
+              "B365H", "B365D", "B365A", "p_home", "p_draw", "p_away"]]
+out.to_csv("data/processed/match_odds.csv", index=False)
+print("Saved data/processed/match_odds.csv", len(out))
