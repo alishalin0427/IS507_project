@@ -1,0 +1,6 @@
+model,features,log_loss,mean_prediction,actual_goal_rate,vs_previous_%
+Baseline 0,none (training goal rate),0.3108149516528336,0.09760673942178824,0.09357030841610037,
+Baseline 1,"distance, angle",0.2724917339243346,0.0989578673424565,0.09357030841610037,-12.3
+Model 2,"distance, angle, is_header, is_other_body",0.26359586309078387,0.09991828093898218,0.09357030841610037,-3.3
+Model 3,"distance, angle, is_header, is_other_body, from_counter, from_corner, from_free_kick, from_throw_in, other_pattern",0.2605975732256808,0.10018037122476815,0.09357030841610037,-1.1
+StatsBomb xG (benchmark),-,0.2433052743061862,0.09315849682313992,0.09357030841610037,

@@ -1,0 +1,10 @@
+validation 射門：5739；沒有賠率的射門（排除）：0
+
+Calibration by team strength (p_b1, validation)
+goals_minus_xg > 0: model under-predicts; < 0: model over-predicts
+           shots  goals       xg  actual_rate  predicted_rate  goals_minus_xg      z        verdict
+group                                                                                              
+favourite   3360    354  348.561        0.105           0.104           5.439  0.325             ok
+underdog    2379    183  219.358        0.077           0.092         -36.358 -2.701  OVER-predicts
+
+Saved figures/calib_by_strength_p_b1.png

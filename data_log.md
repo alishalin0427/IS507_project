@@ -54,6 +54,9 @@ Counts are for the four complete leagues (Premier League, La Liga, Serie A, Ligu
 | M4 | 10/7 | Mengling | Next features: body part (Model 2), play pattern (Model 3) | Error analysis of Baseline 1 (training set): headers predicted 864 goals vs 454 actual (z = −16.0); corners over-predicted by 276 (z = −12.5); counter-attacks under-predicted by 84 (z = +9.0) | Planned for the final |
 | M5 | 10/12 | Team | Drop Model 4 (+ log distance) from the plan | Not part of the research question; keep the plan simple. Revisit if error analysis still shows bias by distance band | Done |
 | M6 | 11/17 | Mengling | Sort match IDs before shuffling for the split | Same seed gave a different split after the re-download (A4), because `unique()` follows file order. Sorting makes the split independent of file order. New split: 1,061 / 227 / 229 matches; 26,115 / 5,739 / 5,634 shots. Baseline numbers updated in M3, M4 | Done |
+| M7 | 11/26 | Mengling | Final model = Model 3 (distance, angle, body part, play pattern) | Lowest validation log loss: B1 0.2725 → M2 0.2636 → M3 0.2606 (StatsBomb xG 0.2433; M3 closes 41% of the gap). Body part adds about 3× as much as play pattern. On validation, header bias 93 → 7 goals, corner bias 57 → 3, counter bias 25 → 8 | Done |
+| M8 | 11/26 | Mengling | Judge error analysis of Model 3 on validation, not training | On the training set, a dummy forces its group's predicted total to equal actual goals, so z ≈ 0 there by construction | Done |
+| M9 | 11/26 | Mengling | Calibration by team strength: Model 3 over-predicts underdogs | Validation, favourite = higher implied win probability than the opponent (rule set by IChen before seeing results). Favourites: 354 goals vs 356 predicted (z = −0.1). Underdogs: 183 vs 219 (z = −2.7), same as Baseline 1, so body part and play pattern do not explain it. Gap concentrated in high-probability chances | Done |
 
 ## Feature rules (leakage)
 
@@ -72,4 +75,4 @@ Counts are for the four complete leagues (Premier League, La Liga, Serie A, Ligu
 - [ ] Final: fit Models 2 and 3 and compare with Baseline 1 on validation
 - [ ] Final: join odds and check calibration for favourites vs underdogs
 - [ ] Final: evaluate the chosen model once on the test set
-- [ ] **Distance non-linearity.** Baseline 1 error analysis by distance band: 6–12 yd over-predicted (z = −3.8), 12–18 yd under-predicted (z = +5.7), 25+ yd over-predicted (z = −2.3). Check again on Model 3 (task 13); if it remains, mention in Limitations or try log distance (see M5)
+- [x] **Distance non-linearity.** Model 3: 12–18 yd z = +2.5 on training but +0.6 on validation; mild, mentioned as a limitation. Log distance not added.
